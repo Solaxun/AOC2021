@@ -34,13 +34,18 @@
 (count (bfs-search "start" neighbor-func #(= % "end")))
 
 (defn neighbor-func-2 [path]
+  ;; if path contains any duplicate small-letters, remove from neighbors
+  ;; every small-letter that's already in the path
   (let [f (frequencies (filter is-lower? path))
-        n (->> path last neighbors (remove #(= "start" %)))]
-    (if (>= 1 (apply max (vals f)))
-      n
-      (remove #(and (>= (get f % 0) 1)
-                    (is-lower? %))
-              n))))
+        neighbors (->> path last neighbors (remove #(= "start" %)))]
+    (if (> (apply max (vals f)) 1)
+      (remove f neighbors)
+      neighbors)))
 
 ;; few times faster than python
 (count (bfs-search "start" neighbor-func-2 #(= % "end")))
+
+neighbors
+(neighbor-func-2 ["xq" "ni" "sa" "IE"  "oz"])
+(neighbor-func-2 ["xq" "ni" "sa" "IE" "ni" "oz"])
+(neighbor-func-2 ["start" "xq" "ni" "sa" "IE" "xq" "oz" "HO"])

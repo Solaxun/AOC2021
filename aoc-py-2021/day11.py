@@ -20,7 +20,6 @@ def reset_flashed(octopi,flashed_locs):
     return [[col if (r,c) not in flashed_locs else 0 
              for c,col in enumerate(row)]
              for r,row in enumerate(octopi)]
-
     
 def flash(octopi,flashed_locs=set(),nflashed=0):
     if none_will_flash(octopi,flashed_locs):
