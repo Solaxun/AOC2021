@@ -27,24 +27,25 @@ while game_on:
             break
         die += 3
 
-#WIP day 21 part 2
 def mod1(num,m): return num % m or m
 
 @cache
 def play_round(player,pos1,score1,pos2,score2):
     if score1 >= 21:
-        return 0 # swap this with the 1 below to get other player's # of wins
+        return 1,0
     if score2 >= 21:
-        return 1
-    wins = 0
+        return 0,1
+    wins1,wins2 = 0,0
     for roll in itertools.product([1,2,3],repeat=3):
         r = sum(roll)
         if player == 1:        
             new_pos = points = mod1(pos1 + r,10)
-            wins += play_round(2,new_pos,score1+points,pos2,score2)
+            w1,w2 = play_round(2,new_pos,score1+points,pos2,score2)
         else:
             new_pos = points = mod1(pos2 + r,10)
-            wins += play_round(1,pos1,score1,new_pos,score2+points)
-    return wins
+            w1,w2 = play_round(1,pos1,score1,new_pos,score2+points)
+        wins2 += w2
+        wins1 += w1
+    return wins1,wins2
 
 print(play_round(1,7,0,1,0))
