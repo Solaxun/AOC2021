@@ -30,20 +30,4 @@ def part1():
             return i
         i += 1
         cucumbers = cs
-
-assert move('>..>') == '.>.>'
-assert move('>.>') == '.>>'
-assert move('>>.') == '>.>'
-assert move('>>..>.') == '>.>..>'
-
-# ele = '.>.>'
-# # .>..
-# # .>.> | >..>
-# # y = [b if b == '>' and a == '.' else b for a,b in zip(x,x[-1]+x[1:])]
-# res = []
-# for i,x in enumerate(ele):
-#     if ele[i-1] == '>' and x == '.':
-#         res.append('>')
-#     else:
-#         res.append(ele[i-1])
-# print(res)
+print(part1())
